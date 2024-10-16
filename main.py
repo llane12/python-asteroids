@@ -21,6 +21,10 @@ def main():
                 pygame.quit()
                 return
 
+        # logic
+        player.update(dt)
+
+        # rendering
         screen.fill((10, 10, 10))
         player.draw(screen)
         pygame.display.flip()
