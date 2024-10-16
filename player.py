@@ -6,10 +6,7 @@ from constants import *
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0
-    
-    def draw(self, screen):
-        pygame.draw.polygon(screen, "white", self.__triangle(), PLAYER_LINE_WIDTH)
+        self.rotation = 0    
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -18,9 +15,20 @@ class Player(CircleShape):
             self.__rotate(-dt)
         if keys[pygame.K_d]:
             self.__rotate(dt)
+        if keys[pygame.K_w]:
+            self.__move(dt)
+        if keys[pygame.K_s]:
+            self.__move(-dt)
 
+    def draw(self, screen):
+        pygame.draw.polygon(screen, "white", self.__triangle(), PLAYER_LINE_WIDTH)
+    
     def __rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
+
+    def __move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_MOVE_SPEED * dt
 
     def __triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
