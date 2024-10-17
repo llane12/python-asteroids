@@ -6,7 +6,8 @@ from constants import *
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0    
+        self.rotation = 0
+        self.velocity = PLAYER_MOVE_SPEED
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -28,7 +29,7 @@ class Player(CircleShape):
 
     def __move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        self.position += forward * PLAYER_MOVE_SPEED * dt
+        self.position += forward * self.velocity * dt
 
     def __triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
